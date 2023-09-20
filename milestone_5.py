@@ -5,10 +5,6 @@ word_list = ["mango", "kiwi", "watermelon", "strawberry", "grapefruit"]
 class Hangman():
     '''
     This class codes the logic for the game hangman.
-
-    Attributes:
-        word_list: the list of strings the word is chosen from
-        num_lives: the number of guesses the user can name, set to default value of 5
     
     '''
     def __init__(self, word_list, num_lives = 5):
@@ -23,7 +19,8 @@ class Hangman():
 
         Attributes:
             word: the word to be guessed chosen at random from the word_list
-            word_guessed: a list of "_" with each underscore replaced for every correct letter guessed
+            word_guessed: a list of "_" with each underscore replaced for every 
+            correct letter guessed
             num_letters: the number of unique letters in the word
             list_of_guesses: a list of all the guessed letters by the user
     
@@ -48,9 +45,9 @@ class Hangman():
         guess = guess.lower()
         if guess in self.word:
             print(f"Good guess! {guess} is in the word.")
-            for letter in self.word:
+            for index, letter in enumerate(self.word):
                 if letter == guess:
-                    self.word_guessed[self.word.index(guess)] = letter
+                    self.word_guessed[index] = letter
             print(self.word_guessed)
             self.num_letters -= 1
         else:
@@ -60,7 +57,8 @@ class Hangman():
     
     def ask_for_input(self):
         '''
-        This method asks the user for input (a letter) and validates if the user has entered one character and if that character is an alphabetical value. 
+        This method asks the user for input (a letter) and validates if the user 
+        has entered one character and if that character is an alphabetical value. 
 
         If it isn't:
         The user gets an error message and is prompted to try again
@@ -87,17 +85,20 @@ class Hangman():
 
 def play_game(word_list):
     '''
-    This function takes in the word_list as an argument and forms the logic of the game. 
+    This function takes in the word_list as an argument and forms the logic 
+    of the game. 
 
     Parameters:
-        word_list: the list of possible words from which the word is randomly chosen 
+        word_list: the list of possible words from which the word is randomly 
+        chosen 
 
     '''
     num_lives = 5
     game = Hangman(word_list, num_lives)
     while True:
-        if num_lives == 0:
+        if game.num_lives == 0:
             print("You lost!")
+            break
         elif game.num_letters > 0:
             game.ask_for_input()
         elif num_lives != 0 and game.num_letters == 0:
